@@ -1,14 +1,20 @@
 import React, { useRef, useState } from 'react'
 import Header from './Header'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import formValidation from '../Utils/ValidateForm';
-import {createUserWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import  {auth}  from '../Utils/Firebase';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../Redux/UserSlice';
 
 
 
 const Signup = () => {
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const name = useRef();
   const email = useRef();
   const password = useRef();
   const [errorMessage, setErrorMessage] = useState(null);
@@ -28,6 +34,24 @@ const Signup = () => {
       // Signed up 
       const user = userCredential.user;
       console.log(user);
+
+        //Just After SignUp - Update the user Profile
+
+        updateProfile(user, {
+          displayName: name.current.value
+        }).then(() => {
+
+          const {uid,email,displayName} = auth.currentUser;
+          dispatch(addUser({uid:uid, email:email, displayName:displayName}))
+
+          navigate("/browse")
+        }).catch((error) => {
+          console.log(error);
+          navigate("/error")
+          
+        });
+
+      
       
       })
       .catch((error) => {
@@ -52,7 +76,7 @@ const Signup = () => {
       <div className='w-[30%] mx-auto bg-black/75 relative top-50 text-white px-20 py-10 rounded-xl'>
         <form className='space-y-2.5 '>
           <h2 className='text-3xl font-bold'>Sign Up</h2>
-          <input type="text"  placeholder='Name'  className='bg-gray-700 px-4 py-4 w-full rounded-md'/> <br />
+          <input ref={name} type="text"  placeholder='Name'  className='bg-gray-700 px-4 py-4 w-full rounded-md'/> <br />
           <input ref={email}  onChange={() => setErrorMessage(null)} type="text"  placeholder='Email'  className='bg-gray-700 px-4 py-4 w-full rounded-md'/> <br />
           <input ref={password} onChange={() => setErrorMessage(null)} type="password" placeholder='Password'className='bg-gray-700 px-4 py-4 w-full rounded-md' /> <br />
           {
