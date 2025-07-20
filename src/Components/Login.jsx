@@ -1,0 +1,49 @@
+import React, { useRef, useState } from 'react'
+import Header from './Header'
+import { Link } from 'react-router-dom'
+import formValidation from '../Utils/ValidateForm';
+
+const Login = () => {
+ 
+
+
+  return (
+    <div className='relative'>
+
+      <Header/>
+
+      <div className='absolute'>
+        <img src="https://assets.nflxext.com/ffe/siteui/vlv3/a927b1ee-784d-494a-aa80-cf7a062d2523/web/IN-en-20250714-TRIFECTA-perspective_5acb7337-c372-45ec-ae12-ddb110e6ad78_large.jpg" alt="" />
+      </div>
+
+      <div className='w-[30%] mx-auto bg-black/75 relative top-50 text-white px-20 py-10 rounded-xl'>
+
+        <form className='space-y-2.5 '>
+
+          <h2 className='text-3xl font-bold'>Sign In</h2>
+
+          <input  type="text"  placeholder='Email..'  className='bg-gray-700 px-4 py-4 w-full rounded-md'/> <br />
+
+          <input
+             type="password" placeholder='Password..'className='bg-gray-700 px-4 py-4 w-full rounded-md' /> <br />
+
+          <button  type='submit' className='bg-red-600 w-full px-3 py-2 rounded-md'>Sign In</button>
+
+          <h2 className=' text-center'>OR</h2>
+
+          <button className='font-bold bg-gray-500 w-full px-3 py-2 rounded-md'>Use a sign-in code</button>
+
+          <h2 className='text-center underline'>Forget Password?</h2>
+
+          <h2>New to Netflix? <Link to={"/signup"} className='hover:underline'>Sign up now.</Link> </h2>
+
+        </form>
+
+      </div>
+
+
+    </div>
+  )
+}
+
+export default Login
