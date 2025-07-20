@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import {getAuth} from 'firebase/auth'
 const firebaseConfig = {
-  apiKey: "AIzaSyBFTf2gFByB3rg88fP2wiuC24iQzsJvcpk",
+  apiKey: "",
   authDomain: "cinenova-03.firebaseapp.com",
   projectId: "cinenova-03",
   storageBucket: "cinenova-03.firebasestorage.app",
